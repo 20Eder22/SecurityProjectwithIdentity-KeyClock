@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/deploy/">
+    <File Path="docker-compose.yaml" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/01. Implementacion/">
+    <Project Path="Identity.Api/Identity.Api.csproj" Id="8a598e16-94b5-4340-a841-a26b811b923e">
+      <BuildDependency Project="Identity.Infraestructura/Identity.Infraestructura.csproj" />
+    </Project>
+    <Project Path="Identity.Infraestructura/Identity.Infraestructura.csproj" />
+  </Folder>
+  <Folder Name="/src/02. Clientes/">
+    <Project Path="Identity.Cliente-01/Identity.Cliente-01.csproj" Id="0eca8690-e3f4-45df-9737-d14d14dd09a1" />
+  </Folder>
+</Solution>
