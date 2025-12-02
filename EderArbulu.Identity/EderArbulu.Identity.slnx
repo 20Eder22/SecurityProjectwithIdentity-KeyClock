@@ -2,15 +2,18 @@
   <Folder Name="/deploy/">
     <File Path="docker-compose.yaml" />
   </Folder>
-  <Folder Name="/src/" />
-  <Folder Name="/src/01. Implementacion/">
+  <Folder Name="/IdentityServer/" />
+  <Folder Name="/IdentityServer/01. Implementacion/">
     <Project Path="Identity.Api/Identity.Api.csproj" Id="8a598e16-94b5-4340-a841-a26b811b923e">
       <BuildDependency Project="Identity.Infraestructura/Identity.Infraestructura.csproj" />
     </Project>
     <Project Path="Identity.Infraestructura/Identity.Infraestructura.csproj" />
   </Folder>
-  <Folder Name="/src/02. Clientes/">
+  <Folder Name="/IdentityServer/02. Clientes/">
     <Project Path="Identity.Cliente-01/Identity.Cliente-01.csproj" Id="0eca8690-e3f4-45df-9737-d14d14dd09a1" />
     <Project Path="Identity.Cliente-02/Identity.Cliente-02.csproj" Id="975ffca2-1daf-411c-ad79-0bf5b1efe0c3" />
+  </Folder>
+  <Folder Name="/Keycloak/">
+    <Project Path="Keycloak.Utilitarios/Keycloak.Utilitarios.csproj" Id="a5b42f97-5bac-46a2-b4a5-7eee3b5e88f8" />
   </Folder>
 </Solution>
