@@ -14,5 +14,18 @@ services:
         networks:
             - galaxy_security
 
+    keycloak:
+        image: quay.io/keycloak/keycloak:25.0
+        container_name: keycloak
+        environment:
+            - KEYCLOAK_ADMIN=admin
+            - KEYCLOAK_ADMIN_PASSWORD=admin
+        command:
+            - start-dev
+        ports:
+            - "8080:8080"
+        networks:
+            - galaxy_security
+
 networks:
   galaxy_security: 
