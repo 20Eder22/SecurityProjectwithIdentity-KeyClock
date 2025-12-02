@@ -34,8 +34,13 @@
             }
             
             <button class="btn btn-dark w-100 mt-3"
-                    @onclick="LoginWithGithub">
+                    @onclick="LoginGitHub">
                 <i class="fab fa-github"></i> Iniciar sesión con GitHub
+            </button>
+            
+            <button class="btn btn-danger w-100 mt-3" 
+                    @onclick="LoginGoogle">
+                <i class="fab fa-google"></i> Ingresar con Google
             </button>
         </div>
     </div>
@@ -63,9 +68,16 @@
         Nav.NavigateTo("/");
     }
 
-    private void LoginWithGithub()
+    private void LoginGitHub()
     {
-        Nav.NavigateTo("https://localhost:7074/external/github?returnUrl=/accesos", true);
+        var returnUrl = Uri.EscapeDataString("/");
+        Nav.NavigateTo($"https://localhost:7074/external/login/github?returnUrl={returnUrl}", true);
+    }
+
+    private void LoginGoogle()
+    {
+        var returnUrl = Uri.EscapeDataString("/");
+        Nav.NavigateTo($"https://localhost:7074/external/login/google?returnUrl={returnUrl}", true);
     }
 }
 

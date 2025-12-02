@@ -1,3 +1,4 @@
+using Duende.IdentityServer;
 using Identity.Infraestructura;
 
 var corsPolicy = "blazorWasmPolicy";
@@ -30,6 +31,18 @@ builder.Services
         options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
         options.CallbackPath = "/signin-github";
         options.Scope.Add("user:email");
+    })
+    .AddGoogle("Google", options =>
+    {
+        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+
+        options.Scope.Add("profile");
+        options.Scope.Add("email");
+
+        options.CallbackPath = "/signin-google";
     });
 
 var app = builder.Build();
