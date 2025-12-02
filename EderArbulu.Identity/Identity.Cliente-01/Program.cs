@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var corsPolicy = "blazorWasmPolicy";
+
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
@@ -14,9 +16,23 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(corsPolicy, policy =>
+    {
+        policy
+            .WithOrigins("https://localhost:7230")  // tu Blazor WASM
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // IdentityServer lo requiere
+    });
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+app.UseCors(corsPolicy);
 
 if (app.Environment.IsDevelopment())
 {

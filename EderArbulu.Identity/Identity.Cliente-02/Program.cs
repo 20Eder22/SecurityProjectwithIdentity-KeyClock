@@ -13,6 +13,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var backendUrl = builder.Configuration.GetValue<string>("Services:UrlBackend");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(backendUrl!) });
+builder.Services.AddScoped<ApiHttpClient>();
+builder.Services.AddScoped<ConfigService>();
 
 builder.Services.AddAuthorizationCore();
 

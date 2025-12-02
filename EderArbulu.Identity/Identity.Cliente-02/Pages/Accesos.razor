@@ -1,0 +1,38 @@
+﻿
+@page "/accesos"
+@using Microsoft.AspNetCore.Authorization
+@using Services
+@inject ConfigService ConfigService
+@inject NavigationManager Nav
+
+<h3>Accesos</h3>
+
+@if (_error)
+{
+    <RedirectUnauthorized />
+}
+else if (_resultado == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <pre>@_resultado</pre>
+}
+
+@code {
+    private string? _resultado;
+    private bool _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _resultado = await ConfigService.ObtenerAccesosAsync();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            _error = true;
+        }
+    }
+}

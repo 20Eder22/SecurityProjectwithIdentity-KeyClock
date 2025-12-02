@@ -41,12 +41,7 @@
         var authState = await Auth.GetAuthenticationStateAsync();
         var user = authState.User;
 
-        // Cargar acciones dinámicamente según roles
-        if (user.IsInRole("Gerente") || user.IsInRole("Administrador"))
-            _availableActions.Add(new MenuAction("Registrar Reclamo", "/reclamo/nuevo", "bi bi-clipboard2-pulse-fill"));
-
-        if (user.IsInRole("Cliente") || user.IsInRole("Administrador"))
-            _availableActions.Add(new MenuAction("Consultar Reclamo", "/reclamo/consultar", "bi bi-search"));
+        _availableActions.Add(new MenuAction("Ver accesos", "/accesos", "bi bi-clipboard2-pulse-fill"));
     }
 
     public async Task CerrarSesion()
