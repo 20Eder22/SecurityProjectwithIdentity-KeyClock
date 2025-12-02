@@ -6,6 +6,34 @@
 @inject CustomAuthStateProvider CustomAuthStateProvider
 @inject NavigationManager Nav
 
+<style>
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .75em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .75em;
+        }
+
+        .divider span {
+            color: #666;
+            font-weight: 500;
+        }
+</style>
+
 <div class="login-container">
     <div class="login-card shadow-lg">
 
@@ -26,16 +54,20 @@
                 <input class="form-control" type="password" @bind="_password" />
             </div>
 
-            <button class="btn btn-primary" @onclick="OnLogin">Ingresar</button>
+            <button class="btn btn-primary w-100 mt-3" @onclick="OnLogin">Ingresar</button>
 
             @if (!string.IsNullOrEmpty(_error))
             {
                 <div class="alert alert-danger mt-3">@_error</div>
             }
             
+            <div class="divider my-4">
+                <span>o</span>
+            </div>
+
             <button class="btn btn-dark w-100 mt-3"
                     @onclick="LoginGitHub">
-                <i class="fab fa-github"></i> Iniciar sesión con GitHub
+                <i class="fab fa-github"></i> Ingresar con GitHub
             </button>
             
             <button class="btn btn-danger w-100 mt-3" 
