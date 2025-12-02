@@ -1,5 +1,4 @@
-﻿
-@page "/accesos"
+﻿@page "/mail"
 @using Services
 @inject ConfigService ConfigService
 @inject NavigationManager Nav
@@ -29,7 +28,7 @@ else
     {
         try
         {
-            _resultado = await ConfigService.ObtenerAccesosAsync();
+            _resultado = await ConfigService.EnviarMailAsync();
         }
         catch (UnauthorizedAccessException)
         {

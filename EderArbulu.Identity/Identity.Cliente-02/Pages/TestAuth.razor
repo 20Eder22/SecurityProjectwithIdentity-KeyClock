@@ -5,8 +5,7 @@
 <h3>🔍 Test de Autenticación</h3>
 
 <button class="btn btn-primary mt-3" @onclick="Check">Verificar Estado</button>
-<button class="btn btn-danger mt-3" @onclick="LoginWithGithub"> Regresar
-</button>
+<button class="btn btn-danger mt-3" @onclick="GoHome"> Regresar</button>
 
 @if (msg != null)
 {
@@ -29,7 +28,7 @@
             "Claims:\n" + claimsString;
     }
 
-    private void LoginWithGithub()
+    private void GoHome()
     {
         Nav.NavigateTo("/", true);
     }

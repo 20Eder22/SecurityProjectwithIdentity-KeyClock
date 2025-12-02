@@ -26,10 +26,9 @@
         {
             await AddTokenAsync();
 
-            var response = await http.GetAsync(url);
+            var response = await http.PostAsync(url, null);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized ||
-                response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            if (response.StatusCode is System.Net.HttpStatusCode.Unauthorized or System.Net.HttpStatusCode.Forbidden)
             {
                 throw new UnauthorizedAccessException();
             }

@@ -11,5 +11,15 @@
 
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string> EnviarMailAsync()
+        {
+            var response = await api.PostAsync<string>("https://localhost:7287/api/config/SendMail", "");
+
+            if (!response.IsSuccessStatusCode)
+                throw new UnauthorizedAccessException();
+
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }
