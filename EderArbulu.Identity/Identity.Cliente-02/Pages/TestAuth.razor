@@ -1,9 +1,12 @@
 ﻿@page "/test-auth"
 @inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Nav
 
 <h3>🔍 Test de Autenticación</h3>
 
-<button @onclick="Check">Verificar Estado</button>
+<button class="btn btn-primary mt-3" @onclick="Check">Verificar Estado</button>
+<button class="btn btn-danger mt-3" @onclick="LoginWithGithub"> Regresar
+</button>
 
 @if (msg != null)
 {
@@ -24,5 +27,10 @@
             "Identity.IsAuthenticated: " + user.Identity?.IsAuthenticated + "\n" +
             "Name: " + (user.Identity?.Name ?? "(null)") + "\n" +
             "Claims:\n" + claimsString;
+    }
+
+    private void LoginWithGithub()
+    {
+        Nav.NavigateTo("/", true);
     }
 }
