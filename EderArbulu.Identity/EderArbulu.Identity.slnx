@@ -13,7 +13,11 @@
     <Project Path="Identity.Cliente-01/Identity.Cliente-01.csproj" Id="0eca8690-e3f4-45df-9737-d14d14dd09a1" />
     <Project Path="Identity.Cliente-02/Identity.Cliente-02.csproj" Id="975ffca2-1daf-411c-ad79-0bf5b1efe0c3" />
   </Folder>
-  <Folder Name="/Keycloak/">
+  <Folder Name="/Keycloak/" />
+  <Folder Name="/Keycloak/ClientCredentials/">
+    <Project Path="Keycloak.ApiUtilitarios/Keycloak.ApiUtilitarios.csproj" Id="0785b514-6419-41d4-aac1-29915f88f6f8" />
+  </Folder>
+  <Folder Name="/Keycloak/Test - PasswordFlow/">
     <Project Path="Keycloak.Utilitarios/Keycloak.Utilitarios.csproj" Id="a5b42f97-5bac-46a2-b4a5-7eee3b5e88f8" />
   </Folder>
 </Solution>
