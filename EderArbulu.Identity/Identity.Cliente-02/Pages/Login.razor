@@ -1,0 +1,134 @@
+﻿@page "/login"
+
+@using Services
+
+@inject TokenService TokenService
+@inject CustomAuthStateProvider CustomAuthStateProvider
+@inject NavigationManager Nav
+
+<div class="login-container">
+    <div class="login-card shadow-lg">
+
+        <div class="login-image d-none d-md-block">
+        </div>
+
+        <div class="login-form">
+            <h2 class="title mb-3">Bienvenido</h2>
+            <p class="subtitle mb-4">Ingrese sus credenciales para continuar</p>
+
+            <div class="mb-3">
+                <label>Usuario</label>
+                <input class="form-control" @bind="_email" />
+            </div>
+
+            <div class="mb-3">
+                <label>Contraseña</label>
+                <input class="form-control" type="password" @bind="_password" />
+            </div>
+
+            <button class="btn btn-primary" @onclick="OnLogin">Ingresar</button>
+
+            @if (!string.IsNullOrEmpty(_error))
+            {
+                <div class="alert alert-danger mt-3">@_error</div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string _email = "";
+    private string _password = "";
+    private string _error = "";
+
+    private async Task OnLogin()
+    {
+        _error = "";
+
+        var tokenResponse = await TokenService.LoginAsync(_email, _password);
+
+        if (tokenResponse == null)
+        {
+            _error = "Credenciales inválidas";
+            return;
+        }
+
+        await CustomAuthStateProvider.SetTokenAsync(tokenResponse.access_token);
+        
+        Nav.NavigateTo("/");
+    }
+}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #2d6cdf, #5fa1ff);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .login-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+        padding: 20px;
+    }       
+    
+    .login-card {
+        background: white;
+        width: 900px;
+        max-width: 100%;
+        border-radius: 15px;
+        display: flex;
+        overflow: hidden;
+        animation: fadeIn 0.6s ease;
+    }
+
+    .login-image {
+        flex: 1;
+        background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1000&q=80');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login-form {
+        flex: 1;
+        padding: 50px;
+    }
+
+    .title {
+        font-weight: 700;
+        color: #1f3b73;
+    }
+
+    .subtitle {
+        color: #5f6e8a;
+    }
+
+    .custom-input {
+        border-radius: 10px;
+        height: 45px;
+    }
+
+    .login-btn {
+        height: 45px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+
+    .forgot-link {
+        font-size: 14px;
+        text-decoration: none;
+        color: #2d6cdf;
+    }
+
+    .forgot-link:hover {
+        text-decoration: underline;
+    }
+</style>

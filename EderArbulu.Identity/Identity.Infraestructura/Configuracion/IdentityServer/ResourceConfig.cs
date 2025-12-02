@@ -34,6 +34,14 @@ namespace Identity.Infraestructura
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 ClientSecrets = [new Secret("secret".Sha256())],
                 AllowedScopes = ["api-01", "openId", "profile", "email", "roles"]
+            },
+            new()
+            {
+                ClientId = "client-02",
+                ClientName = "Front de Configuraciones",
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                ClientSecrets = [new Secret("secret".Sha256())],
+                AllowedScopes = ["openId", "profile", "email", "roles"]
             }
         ];
     }

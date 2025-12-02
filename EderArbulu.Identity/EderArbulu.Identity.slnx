@@ -11,5 +11,6 @@
   </Folder>
   <Folder Name="/src/02. Clientes/">
     <Project Path="Identity.Cliente-01/Identity.Cliente-01.csproj" Id="0eca8690-e3f4-45df-9737-d14d14dd09a1" />
+    <Project Path="Identity.Cliente-02/Identity.Cliente-02.csproj" Id="975ffca2-1daf-411c-ad79-0bf5b1efe0c3" />
   </Folder>
 </Solution>
