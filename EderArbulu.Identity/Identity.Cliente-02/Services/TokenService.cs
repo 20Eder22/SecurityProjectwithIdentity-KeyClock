@@ -11,11 +11,11 @@ namespace Services
             var data = new Dictionary<string, string>
             {
                 { "grant_type", "password" },
-                { "client_id", "client-01" },
+                { "client_id", "client-02" },
                 { "client_secret", "secret" },
                 { "username", username },
                 { "password", password },
-                { "scope", "api-01 roles profile email" }
+                { "scope", "roles email profile" }
             };
 
             var request = new HttpRequestMessage(HttpMethod.Post, endpoint)

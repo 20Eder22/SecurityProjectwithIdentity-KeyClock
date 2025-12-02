@@ -1,15 +1,13 @@
 ﻿
 @page "/accesos"
-@using Microsoft.AspNetCore.Authorization
 @using Services
 @inject ConfigService ConfigService
-@inject NavigationManager Nav
 
 <h3>Accesos</h3>
 
 @if (_error)
 {
-    <RedirectUnauthorized />
+    <RedirectToLoginOrUnauthorized />
 }
 else if (_resultado == null)
 {

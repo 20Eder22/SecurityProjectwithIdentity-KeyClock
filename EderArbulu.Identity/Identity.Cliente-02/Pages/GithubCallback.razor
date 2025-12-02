@@ -1,0 +1,53 @@
+﻿@page "/github-callback"
+@using Microsoft.AspNetCore.WebUtilities
+@using Services
+@inject NavigationManager Nav
+@inject CustomAuthStateProvider AuthProvider
+
+<h3>Procesando login con GitHub...</h3>
+
+@code {
+    private bool _shouldNavigate;
+    private bool _alreadyNavigated;
+    private string _returnUrl = "/";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = Nav.ToAbsoluteUri(Nav.Uri);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+        
+        if (query.TryGetValue("access_token", out var token))
+        {
+            await AuthProvider.SetTokenAsync(token!);
+
+            if (query.TryGetValue("returnUrl", out var ret))
+                _returnUrl = ret!;
+            else
+                _returnUrl = "/";
+
+            _shouldNavigate = true;
+        }
+        else
+        {
+            _returnUrl = "/login?error=github_login_failed";
+            _shouldNavigate = true;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_shouldNavigate && !_alreadyNavigated)
+        {
+            _alreadyNavigated = true;
+            
+            await Task.Yield();
+
+            Nav.NavigateTo(_returnUrl, true);
+        }
+    }
+}

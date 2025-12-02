@@ -1,28 +1,62 @@
 ﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Services
 {
-    using Microsoft.AspNetCore.Components.Authorization;
-    using System.Security.Claims;
-
     public class CustomAuthStateProvider(ILocalStorageService storage) : AuthenticationStateProvider
     {
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var token = await storage.GetItemAsync<string>("access_token");
 
-            if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrWhiteSpace(token))
             {
-                // Usuario NO autenticado
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
 
-            // Usuario autenticado
-            var identity = new ClaimsIdentity([
-                new Claim(ClaimTypes.Name, "usuario") // Puedes leer claims reales del token
-            ], "jwt");
+            JwtSecurityToken jwt;
 
-            return new AuthenticationState(new ClaimsPrincipal(identity));
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                jwt = handler.ReadJwtToken(token);
+            }
+            catch
+            {
+                await LogoutAsync();
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+
+            var exp = jwt.Payload.Expiration;
+            var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            if (exp < now)
+            {
+                await LogoutAsync();
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+
+            var claims = jwt.Claims.ToList();
+
+            var nameClaim = claims.FirstOrDefault(c => c.Type == "name");
+            if (nameClaim != null)
+            {
+                claims.Add(new Claim(ClaimTypes.Name, nameClaim.Value));
+            }
+
+            var emailClaim = claims.FirstOrDefault(c => c.Type == "email");
+            if (emailClaim != null)
+            {
+                claims.Add(new Claim(ClaimTypes.Email, emailClaim.Value));
+            }
+
+            var identity = new ClaimsIdentity(claims, "jwt");
+
+            var user = new ClaimsPrincipal(identity);
+
+            return new AuthenticationState(user);
         }
 
         public async Task SetTokenAsync(string token)
@@ -37,5 +71,4 @@ namespace Services
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
     }
-
 }

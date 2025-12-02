@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Nav
+
+<CascadingAuthenticationState>
+    <p>Redirigiendo...</p>
+</CascadingAuthenticationState>
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+    private bool _navigated;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_navigated) return;
+
+        var authState = await AuthenticationStateTask;
+        var user = authState.User;
+
+        _navigated = true;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            Nav.NavigateTo("/unauthorized", true);
+        }
+        else
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+}

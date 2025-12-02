@@ -1,0 +1,28 @@
+﻿@page "/test-auth"
+@inject AuthenticationStateProvider AuthStateProvider
+
+<h3>🔍 Test de Autenticación</h3>
+
+<button @onclick="Check">Verificar Estado</button>
+
+@if (msg != null)
+{
+    <pre>@msg</pre>
+}
+
+@code {
+    private string? msg;
+
+    private async Task Check()
+    {
+        var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = state.User;
+
+        var claimsString = string.Join("\n", user.Claims.Select(c => $"{c.Type}: {c.Value}"));
+
+        msg =
+            "Identity.IsAuthenticated: " + user.Identity?.IsAuthenticated + "\n" +
+            "Name: " + (user.Identity?.Name ?? "(null)") + "\n" +
+            "Claims:\n" + claimsString;
+    }
+}

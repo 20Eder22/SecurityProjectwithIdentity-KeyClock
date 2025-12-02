@@ -15,16 +15,28 @@ builder.Services.AddCors(options =>
     options.AddPolicy(corsPolicy, policy =>
     {
         policy
-            .WithOrigins("https://localhost:7230")  // tu Blazor WASM
+            .WithOrigins("https://localhost:7230")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // IdentityServer lo requiere
+            .AllowCredentials();
     });
 });
+
+builder.Services
+    .AddAuthentication()
+    .AddGitHub(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:GitHub:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:GitHub:ClientSecret"]!;
+        options.CallbackPath = "/signin-github";
+        options.Scope.Add("user:email");
+    });
 
 var app = builder.Build();
 
 app.UseCors(corsPolicy);
+
+app.UseAuthentication();
 
 app.UseIdentityServer();
 

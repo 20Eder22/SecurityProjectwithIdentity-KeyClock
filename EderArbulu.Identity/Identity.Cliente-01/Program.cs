@@ -21,10 +21,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(corsPolicy, policy =>
     {
         policy
-            .WithOrigins("https://localhost:7230")  // tu Blazor WASM
+            .WithOrigins("https://localhost:7230")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // IdentityServer lo requiere
+            .AllowCredentials();
     });
 });
 

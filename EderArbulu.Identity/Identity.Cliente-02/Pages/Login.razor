@@ -32,6 +32,11 @@
             {
                 <div class="alert alert-danger mt-3">@_error</div>
             }
+            
+            <button class="btn btn-dark w-100 mt-3"
+                    @onclick="LoginWithGithub">
+                <i class="fab fa-github"></i> Iniciar sesión con GitHub
+            </button>
         </div>
     </div>
 </div>
@@ -56,6 +61,11 @@
         await CustomAuthStateProvider.SetTokenAsync(tokenResponse.access_token);
         
         Nav.NavigateTo("/");
+    }
+
+    private void LoginWithGithub()
+    {
+        Nav.NavigateTo("https://localhost:7074/external/github?returnUrl=/accesos", true);
     }
 }
 
