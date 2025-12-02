@@ -85,6 +85,7 @@
                 {
                     "github" => "GitHub",
                     "google" => "Google",
+                    "microsoft" => "Microsoft",
                     _ => throw new Exception($"Proveedor no soportado: {provider}")
                 };
             }

@@ -74,6 +74,11 @@
                     @onclick="LoginGoogle">
                 <i class="fab fa-google"></i> Ingresar con Google
             </button>
+            
+            <button class="btn btn-primary w-100 mt-3" 
+                    @onclick="LoginMicrosoft">
+                <i class="fab fa-microsoft"></i> Ingresar con Microsoft
+            </button>
         </div>
     </div>
 </div>
@@ -110,6 +115,12 @@
     {
         var returnUrl = Uri.EscapeDataString("/");
         Nav.NavigateTo($"https://localhost:7074/external/login/google?returnUrl={returnUrl}", true);
+    }
+
+    private void LoginMicrosoft()
+    {
+        var returnUrl = Uri.EscapeDataString("/");
+        Nav.NavigateTo($"https://localhost:7074/external/login/microsoft?returnUrl={returnUrl}", true);
     }
 }
 

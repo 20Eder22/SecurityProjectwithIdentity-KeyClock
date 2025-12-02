@@ -1,4 +1,4 @@
-using Duende.IdentityServer;
+﻿using Duende.IdentityServer;
 using Identity.Infraestructura;
 
 var corsPolicy = "blazorWasmPolicy";
@@ -43,6 +43,27 @@ builder.Services
         options.Scope.Add("email");
 
         options.CallbackPath = "/signin-google";
+    })
+    .AddOpenIdConnect("Microsoft", options =>
+    {
+        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+        options.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"]!;
+        options.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"]!;
+        options.Authority = $"https://login.microsoftonline.com/{builder.Configuration["Authentication:Microsoft:TenantId"]}/v2.0";
+
+        options.CallbackPath = "/signin-microsoft";
+
+        options.ResponseType = "code";
+        options.UsePkce = true;
+
+        options.Scope.Clear();
+        options.Scope.Add("openid");
+        options.Scope.Add("profile");
+        options.Scope.Add("email");
+
+        options.TokenValidationParameters.NameClaimType = "name";
+        options.TokenValidationParameters.RoleClaimType = "roles";
     });
 
 var app = builder.Build();
