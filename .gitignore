@@ -416,3 +416,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/EderArbulu.Identity/Identity.Cliente-02/wwwroot/appsettings.Development.json
+/EderArbulu.Identity/Identity.Cliente-01/appsettings.Development.json
+/EderArbulu.Identity/Identity.Api/appsettings.Development.json
