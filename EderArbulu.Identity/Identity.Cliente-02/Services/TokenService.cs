@@ -6,7 +6,7 @@ namespace Services
     {
         public async Task<TokenResponse?> LoginAsync(string username, string password)
         {
-            var endpoint = "https://localhost:7074/connect/token";
+            var endpoint = "https://localhost:7221/identity-back/Connect/token";
 
             var data = new Dictionary<string, string>
             {

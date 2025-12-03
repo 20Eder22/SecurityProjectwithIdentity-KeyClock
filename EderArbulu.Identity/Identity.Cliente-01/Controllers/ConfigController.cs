@@ -34,7 +34,7 @@ namespace Identity.Cliente_01.Controllers
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-            var apiResponse = await client.GetAsync("https://localhost:7259/SendEmail");
+            var apiResponse = await client.GetAsync("https://localhost:7221/utilitarios-back/SendEmail");
 
             if (apiResponse is { IsSuccessStatusCode: false, StatusCode: HttpStatusCode.Unauthorized })
             {

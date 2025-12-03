@@ -1,8 +1,10 @@
 <Solution>
+  <Folder Name="/ApiManagment/">
+    <Project Path="Api.Gateway/Api.Gateway.csproj" Id="aed656d3-a194-4b6f-afea-45650afb0e31" />
+  </Folder>
   <Folder Name="/deploy/">
     <File Path="docker-compose.yaml" />
   </Folder>
-  <Folder Name="/EntraId/" />
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/01. Implementacion/">
     <Project Path="Identity.Api/Identity.Api.csproj" Id="8a598e16-94b5-4340-a841-a26b811b923e">

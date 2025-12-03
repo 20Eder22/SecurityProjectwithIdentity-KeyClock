@@ -4,7 +4,7 @@
     {
         public async Task<string> ObtenerAccesosAsync()
         {
-            var response = await api.GetAsync("https://localhost:7287/api/config/accesos");
+            var response = await api.GetAsync("https://localhost:7221/client-back/config/accesos");
 
             if (!response.IsSuccessStatusCode)
                 throw new UnauthorizedAccessException();
@@ -14,7 +14,7 @@
 
         public async Task<string> EnviarMailAsync()
         {
-            var response = await api.PostAsync<string>("https://localhost:7287/api/config/SendMail", "");
+            var response = await api.PostAsync<string>("https://localhost:7221/client-back/config/SendMail", "");
 
             if (!response.IsSuccessStatusCode)
                 throw new UnauthorizedAccessException();

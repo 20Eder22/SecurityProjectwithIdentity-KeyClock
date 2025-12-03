@@ -9,7 +9,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
     {
-        options.Authority = "https://localhost:7074";
+        options.Authority = "https://localhost:7221/identity-back";
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidateAudience = false
